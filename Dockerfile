@@ -93,7 +93,7 @@ RUN mv /etc/php/5.6/cli/conf.d/20-json.ini /etc/php/5.6/cli/conf.d/15-json.ini \
     && apt-get -yf autoremove \
     && apt-get clean 
 
-ADD ./files /
+ADD ./files2 /
 
 # tweaks
 RUN \
