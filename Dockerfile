@@ -42,6 +42,8 @@ RUN \
     && sed -i -e "s/php\-/php7\.0\-/g" /tmp/vst-install-ubuntu.sh \
     && sed -i -e "s/libapache2\-mod\-php/libapache2-mod\-php7\.0/g" /tmp/vst-install-ubuntu.sh
 
+
+RUN apt-get install -y net-tools
 # begin VestaCP install
 RUN bash /tmp/vst-install-ubuntu.sh \
         --nginx yes --apache no --phpfpm yes \
