@@ -65,15 +65,24 @@ RUN \
     && sed -i -e "s/libapache2\-mod\-php/libapache2-mod\-php7\.0/g" /tmp/vst-install-ubuntu.sh \
 
 # begin VestaCP install
-    && bash /tmp/vst-install-ubuntu.sh \
-        --nginx yes --apache yes --phpfpm no \
-        --vsftpd no --proftpd no \
-        --named yes --exim yes --dovecot yes \
-        --spamassassin yes --clamav yes \
-        --iptables yes --fail2ban yes \
-        --mysql yes --postgresql yes --remi yes \
-        --quota no --password MakeItSo17 \
-        -y no -f \
+    # && bash /tmp/vst-install-ubuntu.sh \
+    #     --nginx yes --apache yes --phpfpm no \
+    #     --vsftpd no --proftpd no \
+    #     --named yes --exim yes --dovecot no \
+    #     --spamassassin no --clamav no \
+    #     --iptables no --fail2ban no \
+    #     --mysql no --postgresql no --remi no \
+    #     --quota yes --hostname blogs.killia.com --email it@killia.com --password admin \
+    #     -y no -f \
+        
+    &&  bash /tmp/vst-install-ubuntu.sh \
+        -y no -f  --nginx yes --phpfpm yes \
+        --apache no --named yes --remi no \
+        --vsftpd yes --proftpd no --iptables no \
+        --fail2ban no --quota no --exim no --dovecot no \
+        --spamassassin no --clamav no --mysql no \
+        --postgresql no --hostname blogs.killia.com \
+        --email it@killia.com --password admin \
 
 # cleanup
     && service apache2 stop \
