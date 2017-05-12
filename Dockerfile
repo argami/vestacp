@@ -1,6 +1,6 @@
 FROM niiknow/docker-hostingbase:0.8.4
 
-MAINTAINER friends@niiknow.org
+MAINTAINER argami@gmail.com
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV VESTA=/usr/local/vesta DOTNET_VERSION=1.1.0 GOLANG_VERSION=1.7.5
@@ -62,27 +62,27 @@ RUN \
     && sed -i -e "s/mysql\-/mariadb\-/g" /tmp/vst-install-ubuntu.sh \
     && sed -i -e "s/\-php php /\-php php7\.0 /g" /tmp/vst-install-ubuntu.sh \
     && sed -i -e "s/php\-/php7\.0\-/g" /tmp/vst-install-ubuntu.sh \
-    && sed -i -e "s/libapache2\-mod\-php/libapache2-mod\-php7\.0/g" /tmp/vst-install-ubuntu.sh \
+    && sed -i -e "s/libapache2\-mod\-php/libapache2-mod\-php7\.0/g" /tmp/vst-install-ubuntu.sh
 
 # begin VestaCP install
-    # && bash /tmp/vst-install-ubuntu.sh \
-    #     --nginx yes --apache yes --phpfpm no \
-    #     --vsftpd no --proftpd no \
-    #     --named yes --exim yes --dovecot no \
-    #     --spamassassin no --clamav no \
-    #     --iptables no --fail2ban no \
-    #     --mysql no --postgresql no --remi no \
-    #     --quota yes --hostname blogs.killia.com --email it@killia.com --password admin \
-    #     -y no -f \
+RUN bash /tmp/vst-install-ubuntu.sh \
+        --nginx yes --apache no --phpfpm yes \
+        --vsftpd yes --proftpd no \
+        --named yes --exim yes --dovecot no \
+        --spamassassin no --clamav no \
+        --iptables no --fail2ban no \
+        --mysql no --postgresql no --remi no \
+        --quota yes --hostname blogs.killia.com --email it@killia.com --password admin \
+        -y no -f \
         
-    &&  bash /tmp/vst-install-ubuntu.sh \
-        -y no -f  --nginx yes --phpfpm yes \
-        --apache no --named yes --remi no \
-        --vsftpd yes --proftpd no --iptables no \
-        --fail2ban no --quota no --exim no --dovecot no \
-        --spamassassin no --clamav no --mysql no \
-        --postgresql no --hostname blogs.killia.com \
-        --email it@killia.com --password admin \
+    # &&  bash /tmp/vst-install-ubuntu.sh \
+    #     -y no -f  --nginx yes --phpfpm yes \
+    #     --apache no --named yes --remi no \
+    #     --vsftpd yes --proftpd no --iptables no \
+    #     --fail2ban no --quota no --exim no --dovecot no \
+    #     --spamassassin no --clamav no --mysql no \
+    #     --postgresql no --hostname blogs.killia.com \
+    #     --email it@killia.com --password admin \
 
 # cleanup
     && service apache2 stop \
