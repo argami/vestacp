@@ -46,7 +46,7 @@ RUN \
 RUN bash /tmp/vst-install-ubuntu.sh \
         --nginx yes --apache no --phpfpm yes \
         --vsftpd no --proftpd no \
-        --named yes --exim no --dovecot no \
+        --named no --exim no --dovecot no \
         --spamassassin no --clamav no \
         --iptables no --fail2ban no \
         --mysql no --postgresql no --remi no \
@@ -264,7 +264,7 @@ RUN \
     # && sed -i -e "s/ROLE \$DBUSER/ROLE \$DBUSER WITH LOGIN/g" /usr/local/vesta/func/rebuild.sh \
 
 # https://github.com/serghey-rodin/vesta/issues/1009
-    # && sed -i -e "s/unzip/unzip \-o/g" /usr/local/vesta/bin/v-extract-fs-archive \
+    && sed -i -e "s/unzip/unzip \-o/g" /usr/local/vesta/bin/v-extract-fs-archive \
     #
     # && echo "\nServerName localhost\n" >> /etc/apache2/apache2.conf \
     # && sed -i -e "s/^ULIMIT_MAX_FILES=.*/ULIMIT_MAX_FILES=/g" /usr/sbin/apache2ctl \
