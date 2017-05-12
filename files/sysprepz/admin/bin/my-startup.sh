@@ -20,9 +20,9 @@ fi
 # required startup and of course vesta
 cd /etc/init.d/
 ./disable-transparent-hugepages defaults \
-&& ./apache2 start \
-&& ./mysql start \
-&& ./postgresql start \
+# && ./apache2 start \
+# && ./mysql start \
+# && ./postgresql start \
 && ./nginx start \
 && ./vesta start
 
@@ -30,5 +30,5 @@ cd /etc/init.d/
 # && ./dovecot start \
 # && ./clamav-daemon start \
 # && ./spamassassin start \
-# && ./php7.0-fpm start \
+&& ./php7.0-fpm start \
 # && ./fail2ban start \ # -- only if you run in privileged mode

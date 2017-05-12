@@ -45,7 +45,7 @@ RUN \
 # begin VestaCP install
 RUN bash /tmp/vst-install-ubuntu.sh \
         --nginx yes --apache no --phpfpm yes \
-        --vsftpd yes --proftpd no \
+        --vsftpd no --proftpd no \
         --named yes --exim yes --dovecot no \
         --spamassassin no --clamav no \
         --iptables no --fail2ban no \
