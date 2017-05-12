@@ -52,7 +52,7 @@ RUN bash /tmp/vst-install-ubuntu.sh \
         --spamassassin no --clamav no \
         --iptables no --fail2ban no \
         --mysql no --postgresql no --remi no \
-        --quota yes --email it@killia.com --password admin \
+        --quota yes --password admin \
         -y no -f \
         
     # &&  bash /tmp/vst-install-ubuntu.sh \
