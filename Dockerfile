@@ -48,7 +48,7 @@ RUN apt-get install -y net-tools
 RUN bash /tmp/vst-install-ubuntu.sh \
         --nginx yes --apache no --phpfpm yes \
         --vsftpd no --proftpd no \
-        --named no --exim no --dovecot no \
+        --named yes --exim no --dovecot no \
         --spamassassin no --clamav no \
         --iptables no --fail2ban no \
         --mysql no --postgresql no --remi no \
