@@ -32,6 +32,9 @@ RUN \
         php7.1-tidy php7.1-opcache php7.1-json php7.1-bz2 php7.1-pgsql php7.1-mcrypt php7.1-readline php7.1-imagick \
         php7.1-intl php7.1-sqlite3 php7.1-ldap php7.1-xml php7.1-redis php7.1-dev
 
+
+RUN apt-get install -y net-tools
+
 ADD ./vst-install-ubuntu.sh /tmp/
 
 RUN \
@@ -44,8 +47,6 @@ RUN \
     && sed -i -e "s/php\-/php7\.0\-/g" /tmp/vst-install-ubuntu.sh \
     && sed -i -e "s/libapache2\-mod\-php/libapache2-mod\-php7\.0/g" /tmp/vst-install-ubuntu.sh
 
-
-RUN apt-get install -y net-tools
 # begin VestaCP install
 RUN bash /tmp/vst-install-ubuntu.sh \
         --nginx yes --apache no --phpfpm yes \
@@ -156,7 +157,7 @@ RUN \
     # && mkdir -p /data/db \
     # && chmod 0755 /data/db \
     # && chown -R mongodb:mongodb /data/db \
-    && chmod 0755 /etc/init.d/disable-transparent-hugepages \
+    # && chmod 0755 /etc/init.d/disable-transparent-hugepages \
 
 # couchdb stuff
     # && mkdir -p /var/lib/couchdb \
@@ -172,15 +173,15 @@ RUN \
     # && sed -i -- 's/172.*.*.*:80/127.0.0.1:80/g' * && sed -i -- 's/172.*.*.*:8443/127.0.0.1:8443/g' * \
     && cd /etc/nginx/conf.d \
     && sed -i -- 's/172.*.*.*:80;/80;/g' * && sed -i -- 's/172.*.*.*:8080/127.0.0.1:8080/g' * \
-    && cd /home/admin/conf/web \
-    && sed -i -- 's/172.*.*.*:80;/80;/g' * && sed -i -- 's/172.*.*.*:8080/127.0.0.1:8080/g' * \
+    # && cd /home/admin/conf/web \
+    # && sed -i -- 's/172.*.*.*:80;/80;/g' * && sed -i -- 's/172.*.*.*:8080/127.0.0.1:8080/g' * \
 
 # patch default website
-    && cd "$(dirname "$(find /home/admin/web/* -type d -name public_html)")" \
-    && sed -i -e "s/vestacp/nginx/g" public_html/index.html \
-    && sed -i -e "s/VESTA/NGINX/g" public_html/index.html \
-    && sed -i -e "s/vestacp/nginx/g" public_shtml/index.html \
-    && sed -i -e "s/VESTA/NGINX/g" public_shtml/index.html \
+    # && cd "$(dirname "$(find /home/admin/web/* -type d -name public_html)")" \
+    # && sed -i -e "s/vestacp/nginx/g" public_html/index.html \
+    # && sed -i -e "s/VESTA/NGINX/g" public_html/index.html \
+    # && sed -i -e "s/vestacp/nginx/g" public_shtml/index.html \
+    # && sed -i -e "s/VESTA/NGINX/g" public_shtml/index.html \
     && cd /tmp \
 
 # increase postgresql limit to support at least 8gb ram
@@ -384,9 +385,13 @@ RUN \
     # && rm -rf /etc/mongod.conf \
     # && ln -s /vesta/etc/mongod.conf /etc/mongod.conf \
 
-    && mv /data /vesta-start/data \
-    && rm -rf /data \
+    # && mv /data /vesta-start/data \
+    # && rm -rf /data \
+    # && ln -s /vesta/data /data \
+
+    && mkdir /vesta-start/data \
     && ln -s /vesta/data /data \
+
 
     # && mv /etc/couchdb /vesta-start/etc/couchdb \
     # && rm -rf /etc/couchdb \
