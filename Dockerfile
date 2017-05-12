@@ -51,8 +51,8 @@ RUN bash /tmp/vst-install-ubuntu.sh \
         --named yes --exim no --dovecot no \
         --spamassassin no --clamav no \
         --iptables no --fail2ban no \
-        --mysql no --postgresql no --remi no \
-        --quota yes --password admin \
+        --mysql yes --postgresql no --remi no \
+        --quota yes --password Test123 \
         -y no -f \
         
     # &&  bash /tmp/vst-install-ubuntu.sh \
@@ -70,7 +70,7 @@ RUN bash /tmp/vst-install-ubuntu.sh \
 
 # fix v8js reference of json first
     # && mv /etc/php/5.6/apache2/conf.d/20-json.ini /etc/php/5.6/apache2/conf.d/15-json.ini \
-    && mv /etc/php/5.6/cli/conf.d/20-json.ini /etc/php/5.6/cli/conf.d/15-json.ini \
+RUN mv /etc/php/5.6/cli/conf.d/20-json.ini /etc/php/5.6/cli/conf.d/15-json.ini \
     && mv /etc/php/5.6/cgi/conf.d/20-json.ini /etc/php/5.6/cgi/conf.d/15-json.ini \
 
 # switch to php7.0 version as default
