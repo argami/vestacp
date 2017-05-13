@@ -1217,8 +1217,8 @@ if [ "$postgresql" = 'yes' ]; then
 fi
 
 # Adding default domain
-# $VESTA/bin/v-add-domain admin $servername
-# check_result $? "can't create $servername domain"
+$VESTA/bin/v-add-domain admin $servername
+check_result $? "can't create $servername domain"
 
 # Adding cron jobs
 command="sudo $VESTA/bin/v-update-sys-queue disk"

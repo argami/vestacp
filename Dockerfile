@@ -1,4 +1,4 @@
-FROM niiknow/docker-hostingbase:0.8.4
+FROM debian:jessie 
 
 MAINTAINER argami@gmail.com
 
@@ -8,12 +8,13 @@ ENV VESTA=/vesta
 # start
 RUN apt-get update && apt-get -y upgrade && apt-get install -y net-tools
 
-ADD ./vst-install-ubuntu.sh /tmp/
+# ADD ./vst-install-ubuntu.sh /tmp/
+RUN curl -s -o /tmp/vst-install-debian.sh https://vestacp.com/pub/vst-install-debian.sh \
 
-RUN sed -i -e "s/mysql\-/mariadb\-/g" /tmp/vst-install-ubuntu.sh
+RUN sed -i -e "s/mysql\-/mariadb\-/g" /tmp/vst-install-debian.sh
 
 # begin VestaCP install
-RUN bash /tmp/vst-install-ubuntu.sh \
+RUN bash /tmp/vst-install-debian.sh \
         --nginx yes --apache no --phpfpm yes \
         --vsftpd no --proftpd no \
         --named yes --exim no --dovecot no \
@@ -58,15 +59,11 @@ RUN chmod +x /etc/service/sshd/run \
 
     && mkdir -p /sysprepz/home \
     && rsync -a /home/* /sysprepz/home \
-
-    && mkdir -p /vesta-start/local/vesta/data/sessions \
-    && chmod 775 /vesta-start/local/vesta/data/sessions \
-    && chown root:admin /vesta-start/local/vesta/data/sessions \
-
+    
     && rm -rf /backup/.etc \
     && rm -rf /tmp/*
 
 
 VOLUME ["/vesta", "/home", "/backup"]
 
-EXPOSE 22 25 53 54 80 110 443 993 1194 3000 3306 5432 5984 6379 8083 10022 11211 27017
+EXPOSE 22 80 443 8083
