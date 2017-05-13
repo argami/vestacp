@@ -12,5 +12,5 @@ fi
 cd /etc/init.d/
 ./disable-transparent-hugepages defaults \
 && ./nginx start \
-&& ./php7.0-fpm start \
+&& ./php-fpm start \
 && ./vesta start
