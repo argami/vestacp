@@ -29,8 +29,9 @@ RUN apt-get -yf autoremove && apt-get clean
 ADD ./files /
 
 # tweaks
-RUN chmod +x /etc/service/sshd/run \
-    && chmod +x /etc/my_init.d/startup.sh \
+# RUN chmod +x /etc/service/sshd/run \
+#     && chmod +x /etc/my_init.d/startup.sh \
+RUN chmod +x /etc/my_init.d/startup.sh \
 
  
     && sed -i -e "s/PermitRootLogin prohibit-password/PermitRootLogin no/g" /etc/ssh/sshd_config \
