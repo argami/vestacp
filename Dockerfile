@@ -36,6 +36,8 @@ RUN chmod +x /etc/my_init.d/startup.sh \
     && cd $VESTA/data/ips && mv * 127.0.0.1 \
     && cd /etc/nginx/conf.d \
     && sed -i -- 's/172.*.*.*:80;/80;/g' * && sed -i -- 's/172.*.*.*:8080/127.0.0.1:8080/g' * \
+    && cd /home/admin/conf/web \
+    && sed -i -- 's/172.*.*.*:80;/80;/g' * && sed -i -- 's/172.*.*.*:8080/127.0.0.1:8080/g' * \
     && sed -i -e "s/^#PermitRootLogin yes/PermitRootLogin no/g" /etc/ssh/sshd_config \
     && sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 600M/" /etc/php5/cli/php.ini \
     && sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 600M/" /etc/php5/cgi/php.ini \
