@@ -28,6 +28,8 @@ RUN apt-get -yf autoremove && apt-get clean
 
 ADD ./files /
 
+ENV VESTA='/usr/local/vesta'
+
 # tweaks
 RUN chmod +x /etc/my_init.d/startup.sh \ 
     && sed -i -e "s/PermitRootLogin prohibit-password/PermitRootLogin no/g" /etc/ssh/sshd_config \
