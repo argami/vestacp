@@ -3,7 +3,7 @@ FROM debian:jessie
 MAINTAINER argami@gmail.com
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV VESTA='/usr/local/vesta'
+ENV VESTA='/usr/local/vesta/'
 
 # start
 RUN apt-get update && apt-get -y upgrade && apt-get install -y net-tools git unzip nano locales curl
@@ -31,7 +31,7 @@ ADD ./files /
 # tweaks
 RUN chmod +x /etc/my_init.d/startup.sh \ 
     && sed -i -e "s/PermitRootLogin prohibit-password/PermitRootLogin no/g" /etc/ssh/sshd_config \
-    && cd /vesta/data/ips && mv * 127.0.0.1 \
+    && cd $VESTA/data/ips && mv * 127.0.0.1 \
     && cd /etc/nginx/conf.d \
     && sed -i -- 's/172.*.*.*:80;/80;/g' * && sed -i -- 's/172.*.*.*:8080/127.0.0.1:8080/g' * \
     && sed -i -e "s/^#PermitRootLogin yes/PermitRootLogin no/g" /etc/ssh/sshd_config \
@@ -45,13 +45,13 @@ RUN chmod +x /etc/my_init.d/startup.sh \
     && sed -i "s/max_execution_time = 30/max_execution_time = 3600/" /etc/php5/cgi/php.ini \
     && sed -i -e "s/;sendmail_path =/sendmail_path = \/usr\/sbin\/exim \-t/g" /etc/php5/cli/php.ini \
     && sed -i -e "s/;sendmail_path =/sendmail_path = \/usr\/sbin\/exim \-t/g" /etc/php5/cgi/php.ini \
-    && sed -i -e "s/\%ip\%\:\%proxy\_port\%\;/\%proxy\_port\%\;/g" /vesta/data/templates/web/nginx/*.tpl \
-    && sed -i -e "s/\%ip\%\:\%proxy\_ssl\_port\%\;/\%proxy\_ssl\_port\%\;/g" /vesta/data/templates/web/nginx/*.stpl \
-    && sed -i -e "s/\%ip\%\:\%proxy\_port\%\;/\%proxy\_port\%\;/g" /vesta/data/templates/web/nginx/php-fpm/*.tpl \
-    && sed -i -e "s/\%ip\%\:\%proxy\_ssl\_port\%\;/\%proxy\_ssl\_port\%\;/g" /vesta/data/templates/web/nginx/php-fpm/*.stpl \
+    && sed -i -e "s/\%ip\%\:\%proxy\_port\%\;/\%proxy\_port\%\;/g" $VESTA/data/templates/web/nginx/*.tpl \
+    && sed -i -e "s/\%ip\%\:\%proxy\_ssl\_port\%\;/\%proxy\_ssl\_port\%\;/g" $VESTA/data/templates/web/nginx/*.stpl \
+    && sed -i -e "s/\%ip\%\:\%proxy\_port\%\;/\%proxy\_port\%\;/g" $VESTA/data/templates/web/nginx/php-fpm/*.tpl \
+    && sed -i -e "s/\%ip\%\:\%proxy\_ssl\_port\%\;/\%proxy\_ssl\_port\%\;/g" $VESTA/data/templates/web/nginx/php-fpm/*.stpl \
     && sed -i -e "s/^worker_rlimit_nofile    65535;//g" /etc/nginx/nginx.conf \
-    && sed -i -e "s/unzip/unzip \-o/g" /vesta/bin/v-extract-fs-archive \
-    && sed -i -e "s/^NAT=.*/NAT=\'\'/g" /vesta/data/ips/* \
+    && sed -i -e "s/unzip/unzip \-o/g" $VESTA/bin/v-extract-fs-archive \
+    && sed -i -e "s/^NAT=.*/NAT=\'\'/g" $VESTA/data/ips/* \
 
     && mkdir -p /sysprepz/home \
     && rsync -a /home/* /sysprepz/home \
@@ -60,6 +60,6 @@ RUN chmod +x /etc/my_init.d/startup.sh \
     && rm -rf /tmp/*
 
 
-VOLUME ["/usr/local/vesta", "/home", "/backup"]
+VOLUME ["/usr/local/vesta/", "/home", "/backup"]
 
 EXPOSE 22 80 443 8083
