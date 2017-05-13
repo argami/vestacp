@@ -8,8 +8,8 @@ ENV VESTA=/vesta
 # start
 RUN apt-get update && apt-get -y upgrade && apt-get install -y net-tools git unzip nano locales curl
 
-# ADD ./vst-install-ubuntu.sh /tmp/
-RUN curl -s -o /tmp/vst-install-ubuntu.sh https://vestacp.com/pub/vst-install-ubuntu.sh
+ADD ./vst-install-ubuntu.sh /tmp/
+# RUN curl -s -o /tmp/vst-install-ubuntu.sh https://vestacp.com/pub/vst-install-ubuntu.sh
 
 RUN sed -i -e "s/mysql\-/mariadb\-/g" /tmp/vst-install-ubuntu.sh
 
