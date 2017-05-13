@@ -13,7 +13,7 @@ RUN curl -s -o /tmp/vst-install-ubuntu.sh https://vestacp.com/pub/vst-install-ub
 
 RUN sed -i -e "s/mysql\-/mariadb\-/g" /tmp/vst-install-ubuntu.sh
 
-RUN apt-get install lsb-release 
+RUN apt-get install -y lsb-release
 
 # begin VestaCP install
 RUN bash /tmp/vst-install-ubuntu.sh \
