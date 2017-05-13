@@ -9,12 +9,6 @@ then
     rsync -a /sysprepz/admin/bin /home/admin
     
     chown admin:admin /home/admin/bin -R
-
-    # fix roundcube error log permission
-    touch /vesta/var/log/roundcube/errors
-    chown www-data:www-data /vesta/var/log/roundcube
-    chown www-data:www-data /vesta/var/log/roundcube/errors
-    chmod 775 /vesta/var/log/roundcube/errors
 fi
 
 # restore current users
