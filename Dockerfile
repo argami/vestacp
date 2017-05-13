@@ -28,9 +28,7 @@ RUN apt-get -yf autoremove && apt-get clean
 ADD ./files /
 
 # tweaks
-RUN \
-    cd /tmp \
-    && chmod +x /etc/service/sshd/run \
+RUN chmod +x /etc/service/sshd/run \
     && chmod +x /etc/my_init.d/startup.sh \
 
  
@@ -56,7 +54,7 @@ RUN \
     && sed -i -e "s/\%ip\%\:\%proxy\_ssl\_port\%\;/\%proxy\_ssl\_port\%\;/g" /vesta/data/templates/web/nginx/php-fpm/*.stpl \
     && sed -i -e "s/^worker_rlimit_nofile    65535;//g" /etc/nginx/nginx.conf \
     && sed -i -e "s/unzip/unzip \-o/g" /vesta/bin/v-extract-fs-archive \
-    && sed -i -e "s/^NAT=.*/NAT=\'\'/g" /vesta/data/ips/* 
+    && sed -i -e "s/^NAT=.*/NAT=\'\'/g" /vesta/data/ips/* \
 
     && mkdir -p /sysprepz/home \
     && rsync -a /home/* /sysprepz/home \
