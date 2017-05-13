@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV VESTA=/vesta
 
 # start
-RUN apt-get update && apt-get -y upgrade && apt-get install -y net-tools
+RUN apt-get update && apt-get -y upgrade && apt-get install -y net-tools git unzip nano locales curl
 
 # ADD ./vst-install-ubuntu.sh /tmp/
 RUN curl -s -o /tmp/vst-install-debian.sh https://vestacp.com/pub/vst-install-debian.sh \
