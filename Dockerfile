@@ -36,7 +36,7 @@ RUN chmod +x /etc/my_init.d/startup.sh \
  
     && sed -i -e "s/PermitRootLogin prohibit-password/PermitRootLogin no/g" /etc/ssh/sshd_config \
 
-    && cd /vesta/data/ips && mv * 127.0.0.1 \
+    # && cd /vesta/data/ips && mv * 127.0.0.1 \
     && cd /etc/nginx/conf.d \
     && sed -i -- 's/172.*.*.*:80;/80;/g' * && sed -i -- 's/172.*.*.*:8080/127.0.0.1:8080/g' * \
     && sed -i -e "s/^#PermitRootLogin yes/PermitRootLogin no/g" /etc/ssh/sshd_config \
