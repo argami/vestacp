@@ -29,8 +29,7 @@ RUN apt-get -yf autoremove && apt-get clean
 ADD ./files /
 
 # tweaks
-RUN chmod +x /etc/my_init.d/startup.sh \ 
-    && sed -i -e "s/PermitRootLogin prohibit-password/PermitRootLogin no/g" /etc/ssh/sshd_config \
+RUN sed -i -e "s/PermitRootLogin prohibit-password/PermitRootLogin no/g" /etc/ssh/sshd_config \
     && cd $VESTAdata/ips && mv * 127.0.0.1 \
     && cd /etc/nginx/conf.d \
     && sed -i -- 's/172.*.*.*:80;/80;/g' * && sed -i -- 's/172.*.*.*:8080/127.0.0.1:8080/g' * \
