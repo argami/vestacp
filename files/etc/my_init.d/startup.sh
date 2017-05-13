@@ -20,9 +20,5 @@ if [[ -f /backup/.etc/passwd ]]; then
 	rsync -a /backup/.etc/group /etc/group
 fi
 
-# start incron after restore
-cd /etc/init.d/
-./incron start
-
 # starting Vesta
 bash /home/admin/bin/my-startup.sh

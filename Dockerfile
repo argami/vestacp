@@ -49,8 +49,8 @@ RUN chmod +x /etc/my_init.d/startup.sh \
     && sed -i -e "s/;sendmail_path =/sendmail_path = \/usr\/sbin\/exim \-t/g" /etc/php5/cgi/php.ini \
     && sed -i -e "s/\%ip\%\:\%proxy\_port\%\;/\%proxy\_port\%\;/g" $VESTA/data/templates/web/nginx/*.tpl \
     && sed -i -e "s/\%ip\%\:\%proxy\_ssl\_port\%\;/\%proxy\_ssl\_port\%\;/g" $VESTA/data/templates/web/nginx/*.stpl \
-    && sed -i -e "s/\%ip\%\:\%proxy\_port\%\;/\%proxy\_port\%\;/g" $VESTA/data/templates/web/nginx/php-fpm/*.tpl \
-    && sed -i -e "s/\%ip\%\:\%proxy\_ssl\_port\%\;/\%proxy\_ssl\_port\%\;/g" $VESTA/data/templates/web/nginx/php-fpm/*.stpl \
+    && sed -i -e "s/\%ip\%\:\%proxy\_port\%\;/\%proxy\_port\%\;/g" $VESTA/data/templates/web/nginx/php5-fpm/*.tpl \
+    && sed -i -e "s/\%ip\%\:\%proxy\_ssl\_port\%\;/\%proxy\_ssl\_port\%\;/g" $VESTA/data/templates/web/nginx/php5-fpm/*.stpl \
     && sed -i -e "s/^worker_rlimit_nofile    65535;//g" /etc/nginx/nginx.conf \
     && sed -i -e "s/unzip/unzip \-o/g" $VESTA/bin/v-extract-fs-archive \
     && sed -i -e "s/^NAT=.*/NAT=\'\'/g" $VESTA/data/ips/* \

@@ -10,7 +10,6 @@ fi
 
 # required startup and of course vesta
 cd /etc/init.d/
-./disable-transparent-hugepages defaults \
-&& ./nginx start \
-&& ./php-fpm start \
+./nginx start \
+&& ./php5-fpm start \
 && ./vesta start
