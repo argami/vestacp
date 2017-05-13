@@ -28,9 +28,11 @@ RUN apt-get -yf autoremove && apt-get clean
 
 ADD ./files /
 
+ENV VESTA='/usr/local/vesta'
+
 # tweaks
 RUN sed -i -e "s/PermitRootLogin prohibit-password/PermitRootLogin no/g" /etc/ssh/sshd_config \
-    && cd $VESTAdata/ips && mv * 127.0.0.1 \
+    && cd $VESTA/data/ips && mv * 127.0.0.1 \
     && cd /etc/nginx/conf.d \
     && sed -i -- 's/172.*.*.*:80;/80;/g' * && sed -i -- 's/172.*.*.*:8080/127.0.0.1:8080/g' * \
     && cd /home/admin/conf/web \
@@ -46,13 +48,13 @@ RUN sed -i -e "s/PermitRootLogin prohibit-password/PermitRootLogin no/g" /etc/ss
     && sed -i "s/max_execution_time = 30/max_execution_time = 3600/" /etc/php5/cgi/php.ini \
     && sed -i -e "s/;sendmail_path =/sendmail_path = \/usr\/sbin\/exim \-t/g" /etc/php5/cli/php.ini \
     && sed -i -e "s/;sendmail_path =/sendmail_path = \/usr\/sbin\/exim \-t/g" /etc/php5/cgi/php.ini \
-    && sed -i -e "s/\%ip\%\:\%proxy\_port\%\;/\%proxy\_port\%\;/g" $VESTAdata/templates/web/nginx/*.tpl \
-    && sed -i -e "s/\%ip\%\:\%proxy\_ssl\_port\%\;/\%proxy\_ssl\_port\%\;/g" $VESTAdata/templates/web/nginx/*.stpl \
-    && sed -i -e "s/\%ip\%\:\%proxy\_port\%\;/\%proxy\_port\%\;/g" $VESTAdata/templates/web/nginx/php5-fpm/*.tpl \
-    && sed -i -e "s/\%ip\%\:\%proxy\_ssl\_port\%\;/\%proxy\_ssl\_port\%\;/g" $VESTAdata/templates/web/nginx/php5-fpm/*.stpl \
+    && sed -i -e "s/\%ip\%\:\%proxy\_port\%\;/\%proxy\_port\%\;/g" $VESTA/data/templates/web/nginx/*.tpl \
+    && sed -i -e "s/\%ip\%\:\%proxy\_ssl\_port\%\;/\%proxy\_ssl\_port\%\;/g" $VESTA/data/templates/web/nginx/*.stpl \
+    && sed -i -e "s/\%ip\%\:\%proxy\_port\%\;/\%proxy\_port\%\;/g" $VESTA/data/templates/web/nginx/php5-fpm/*.tpl \
+    && sed -i -e "s/\%ip\%\:\%proxy\_ssl\_port\%\;/\%proxy\_ssl\_port\%\;/g" $VESTA/data/templates/web/nginx/php5-fpm/*.stpl \
     && sed -i -e "s/^worker_rlimit_nofile    65535;//g" /etc/nginx/nginx.conf \
-    && sed -i -e "s/unzip/unzip \-o/g" $VESTAbin/v-extract-fs-archive \
-    && sed -i -e "s/^NAT=.*/NAT=\'\'/g" $VESTAdata/ips/* \
+    && sed -i -e "s/unzip/unzip \-o/g" $VESTA/bin/v-extract-fs-archive \
+    && sed -i -e "s/^NAT=.*/NAT=\'\'/g" $VESTA/data/ips/* \
     && rm -rf /tmp/*
 
 
