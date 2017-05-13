@@ -9,7 +9,7 @@ if [ $status -ne 0 ]; then
 fi
 
 # Start the second process
-./php5-fpm start
+/etc/init.d/php5-fpm start
 status=$?
 if [ $status -ne 0 ]; then
   echo "Failed to start php5-fpm: $status"
@@ -17,7 +17,7 @@ if [ $status -ne 0 ]; then
 fi
 
 # Start the second process
-./vesta start
+/etc/init.d/vesta start
 status=$?
 if [ $status -ne 0 ]; then
   echo "Failed to start vesta: $status"
