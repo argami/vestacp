@@ -59,6 +59,6 @@ RUN touch /usr/local/vesta/data/queue/letsencrypt.pipe
 RUN curl -s -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x /usr/local/bin/wp
 
-EXPOSE 80 443 8083
+EXPOSE 21 80 443 8083
 VOLUME ["/usr/local/vesta", "/home", "/backup"]
 ENTRYPOINT ["/home/admin/bin/my-startup.sh"]
