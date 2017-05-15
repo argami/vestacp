@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV VESTA='/usr/local/vesta'
 
 # start
-RUN apt-get update && apt-get -y upgrade && apt-get install -y net-tools git unzip nano locales curl
+RUN apt-get update && apt-get -y upgrade && apt-get install -y net-tools git unzip nano locales curl vim-common
 
 #ADD ./vst-install-ubuntu.sh /tmp/
 RUN curl -s -o /tmp/vst-install-debian.sh https://vestacp.com/pub/vst-install-debian.sh
@@ -23,7 +23,7 @@ RUN bash /tmp/vst-install-debian.sh \
         --password Test123 \
         -y no -f
 
-RUN apt-get -yf autoremove && apt-get clean
+RUN apt-get install vim-common && apt-get -yf autoremove && apt-get clean
 
 ADD ./files /
 
@@ -52,11 +52,12 @@ RUN sed -i -e "s/PermitRootLogin prohibit-password/PermitRootLogin no/g" /etc/ss
     && sed -i -e "s/^NAT=.*/NAT=\'\'/g" $VESTA/data/ips/* \
     && rm -rf /tmp/*
 
+# this is needed for letsencrypt
+RUN touch /usr/local/vesta/data/queue/letsencrypt.pipe
 
 # install wp cli
 RUN curl -s -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-    && chmod +x /usr/local/bin/wp \
-    && wp --info
+    && chmod +x /usr/local/bin/wp
 
 EXPOSE 80 443 8083
 VOLUME ["/usr/local/vesta", "/home", "/backup"]
