@@ -55,9 +55,9 @@ RUN sed -i -e "s/PermitRootLogin prohibit-password/PermitRootLogin no/g" /etc/ss
 
 # install wp cli
 RUN curl -s -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-    && chmod +x /usr/local/bin/wp
+    && chmod +x /usr/local/bin/wp \
     && wp --info
 
-EXPOSE 22 80 443 8083
+EXPOSE 80 443 8083
 VOLUME ["/usr/local/vesta", "/home", "/backup"]
 ENTRYPOINT ["/home/admin/bin/my-startup.sh"]
